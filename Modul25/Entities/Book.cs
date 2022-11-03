@@ -12,10 +12,6 @@ namespace Modul25.Entities
         public string Author { get; set; }
         public string Genre { get; set; }
 
-        // Внешний ключ  Убрал внешиний ключ,т.к. книги могут быть и не у читателей.
-        //      либо добавлять пользователя Библиотекарь, за ним по умолчанию книги закреплять
-        //public int UserId { get; set; }
-
         //  Навигационное свойство 
         public User User { get; set; }
     }

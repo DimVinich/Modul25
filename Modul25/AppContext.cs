@@ -17,13 +17,11 @@ namespace Modul25
 
         public AppContext()
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=EF;Trusted_Connection=True;TrustServerCertificate=Yes;");
             optionsBuilder.UseSqlServer(ConnectionString.MsSqlConnection);
         }
     }

@@ -111,37 +111,69 @@ namespace Modul25.Repository
             }
         }
 
-        //  !!!!Получать булевый флаг о том, есть ли книга определенного автора и с определенным названием в библиотеке
+        //  Получать булевый флаг о том, есть ли книга определенного автора и с определенным названием в библиотеке
         public bool BookHaveAuthorTitle( string author, string title)
         {
             using (AppContext db = new AppContext())
             {
-                //db.Books.Where(a => a.Author == author).Contains(t => t.);
+                var haveBook = db.Books.Where(b => b.Author == author && (b.Title == title)).ToList();
+                if ( haveBook == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
-            return false;
         }
 
-        //  !!!Получать булевый флаг о том, есть ли определенная книга на руках у пользователя.
+        //  Получать булевый флаг о том, есть ли определенная книга на руках у пользователя.
+        public bool BookAtUser (Book book)
+        {
+            using (AppContext db = new AppContext())
+            {
+                var bookAtUser = db.Books.Where(b => b.Id == book.Id && (b.User != null)).ToList();
+                if (bookAtUser != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+
+        }
 
         //  Получать количество книг на руках у пользователя.
         public int BookCountBooksOfUsers()
         {
             using (AppContext db = new AppContext())
             {
-                //db.Books.Where(a => a.Author == author).Contains(t => t.);
+                var countBooks = db.Books.Where(b => b.User != null).Count();
+                return countBooks;
             }
-            return 1;
+            
         }
 
         // Получение последней вышедшей книги.
-        //public Book Book
+        public Book BookGetLatest()
+        {
+            using (AppContext db = new AppContext())
+            {
+                var book = db.Books.FirstOrDefault( b => b.YearOfPublication == db.Books.Max(b2 => b2.YearOfPublication));
+                return book;
+            }
+        }
 
         //  Получение списка всех книг, отсортированного в алфавитном порядке по названию.
         public List<Book> BookGetAllOrderByTitle()
         {
             using (AppContext db = new AppContext())
             {
-                var books = db.Books.OrderByDescending(b => b.Title).ToList();
+                var books = db.Books.OrderBy(b => b.Title).ToList();
                 return books;
             }
 
