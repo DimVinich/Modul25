@@ -9,17 +9,25 @@ namespace Modul25.Repository
     {
 
         // выбор пользователя по идентификатру
-        public void UserGetById( int id)
+        public User UserGetById( int id)
         {
             using (AppContext db = new AppContext())
             {
                 var user = db.Users.FirstOrDefault(u => u.Id == id);
-                Console.WriteLine($"\n Имя пользователя с id = {id}  - {user.Name}");
+                if (user != null)
+                {
+                    Console.WriteLine($"\n Имя пользователя с id = {id}  - {user.Name}");
+                }
+                else
+                {
+                    Console.WriteLine($"\n Пользоваетель с id = {id} - не найден");
+                }
+                return user;
             }
         }
 
         // выбор всех пользователей
-        public void UserGetAll()
+        public List<User> UserGetAll()
         {
             using (AppContext db = new AppContext())
             {
@@ -29,6 +37,7 @@ namespace Modul25.Repository
                 {
                     Console.WriteLine(user.Name);
                 }
+                return users;
             }
         }
 
@@ -52,10 +61,26 @@ namespace Modul25.Repository
                 db.SaveChanges();
             }
             Console.WriteLine($"\n Пользователь {user.Name}  удалён");
-
         }
 
         //  обновление имени пользователя по id
-        //public void 
+        public void UserChangeName( int id, string newName)
+        {
+            using (AppContext db = new AppContext())
+            {
+                var user = db.Users.FirstOrDefault(u => u.Id == id);
+                if (user != null)
+                {
+                    user.Name = newName;
+                    db.SaveChanges();
+
+                    Console.WriteLine($"\n Имя пользователя с кодом {id} изменено на  {user.Name}");
+                }
+                else
+                {
+                    Console.WriteLine($"\n Пользователь с кодом {id} не найдне. Изменения имени не возможно");
+                }
+            }
+        }
     }
 }

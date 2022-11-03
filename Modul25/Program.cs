@@ -39,19 +39,42 @@ namespace Modul25
             //    db.SaveChanges();
             //}
 
-            UserRepository userRepository = new UserRepository();
+            //UserRepository userRepository = new UserRepository();
 
-            userRepository.UserGetAll();
+            //userRepository.UserGetAll();
 
-            //var newUser = new User { Name = "Добавлен", Email = "Vano@gmail.com" };
+            //var newUser = new User { Name = "Добавлен", Email = "AddUser@gmail.com" };
             //userRepository.UserAdd(newUser);
             //userRepository.UserGetAll();
+
             //userRepository.UserDelete(newUser);
             //userRepository.UserGetAll();
 
             //userRepository.UserGetById(15);
+            //userRepository.UserGetById(3);
 
+            //userRepository.UserChangeName(3, "Новое имя");
+            //userRepository.UserGetAll();
+            //userRepository.UserChangeName(3, "Alice");
 
+            BookRepository bookRepository = new BookRepository();
+
+            bookRepository.BookGetAll();
+
+            bookRepository.BookGetById(3);
+            bookRepository.BookGetById(15);
+
+            //bookRepository.;
+            var newBook = new Book { Title = "New Book", Author = "New Autor", Genre ="New Gener", YearOfPublication = 2022 };
+            bookRepository.BookAdd(newBook);
+            bookRepository.BookGetAll();
+
+            bookRepository.BookDelete(newBook);
+            bookRepository.BookGetAll();
+
+            bookRepository.BookChangeYearOfPubclication(3, 1999);
+            bookRepository.BookGetAll();
+            bookRepository.BookChangeYearOfPubclication(3, 2022);
 
             Console.ReadKey();
         }
