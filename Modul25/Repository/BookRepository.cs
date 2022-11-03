@@ -81,5 +81,82 @@ namespace Modul25.Repository
             }
         }
 
+        // Получать список книг определенного жанра и вышедших между определенными годами.
+        public List<Book> BookGetGenreForPeriod( string genre, int yearFrom, int yearTo)
+        {
+            using (AppContext db = new AppContext())
+            {
+                var books =  db.Books.Where(b => b.Genre == genre && (b.YearOfPublication > yearFrom && b.YearOfPublication < yearTo)).ToList();
+                return books;
+            }
+        }
+
+        // Получать количество книг определенного автора в библиотеке.
+        public int BookGetCountByAutor(string autor)
+        {
+            using (AppContext db = new AppContext())
+            {
+                var countBooks = db.Books.Count(b => b.Author == autor);
+                return countBooks;
+            }
+        }
+
+        //  Получать количество книг определенного жанра в библиотеке.
+        public int BookGetCountByGenre(string genre)
+        {
+            using (AppContext db = new AppContext())
+            {
+                var countBooks = db.Books.Count(b => b.Genre == genre);
+                return countBooks;
+            }
+        }
+
+        //  !!!!Получать булевый флаг о том, есть ли книга определенного автора и с определенным названием в библиотеке
+        public bool BookHaveAuthorTitle( string author, string title)
+        {
+            using (AppContext db = new AppContext())
+            {
+                //db.Books.Where(a => a.Author == author).Contains(t => t.);
+            }
+            return false;
+        }
+
+        //  !!!Получать булевый флаг о том, есть ли определенная книга на руках у пользователя.
+
+        //  Получать количество книг на руках у пользователя.
+        public int BookCountBooksOfUsers()
+        {
+            using (AppContext db = new AppContext())
+            {
+                //db.Books.Where(a => a.Author == author).Contains(t => t.);
+            }
+            return 1;
+        }
+
+        // Получение последней вышедшей книги.
+        //public Book Book
+
+        //  Получение списка всех книг, отсортированного в алфавитном порядке по названию.
+        public List<Book> BookGetAllOrderByTitle()
+        {
+            using (AppContext db = new AppContext())
+            {
+                var books = db.Books.OrderByDescending(b => b.Title).ToList();
+                return books;
+            }
+
+        }
+
+        //  Получение списка всех книг, отсортированного в порядке убывания года их выхода.
+        public List<Book> BookGetAllOrderByYear()
+        {
+            using (AppContext db = new AppContext())
+            {
+                var books = db.Books.OrderByDescending(b => b.YearOfPublication).ToList();
+                return books;
+            }
+            
+        }
+
     }
 }
